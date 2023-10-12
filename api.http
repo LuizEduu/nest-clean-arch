@@ -1,0 +1,12 @@
+GET http://localhost:3000/projects
+
+###
+POST http://localhost:3000/projects
+Content-Type: application/json
+
+{
+  "name": "Project 1",
+  "description": "This is project 1",
+  "started_at": "2023-10-12 20:48:00"
+}
+###
