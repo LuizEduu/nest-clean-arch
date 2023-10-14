@@ -10,18 +10,16 @@ Content-Type: application/json
 
 {
   "name": "Project 1",
-  "description": "This is project 1",
-  "started_at": "2023-10-12 20:48:00"
+  "description": "This is project 1"
 }
 ###
 
 @project_id = {{createProject.response.body.id}}
 
 ###
-PATCH http://localhost:3000/projects/{{project_id}}
+POST http://localhost:3000/projects/{{project_id}}/start
 Content-Type: application/json
 
 {
-  "finished_at": "2023-10-12 20:48:00"
+  "started_at": "2023-10-14 14:00:00"
 }
-###

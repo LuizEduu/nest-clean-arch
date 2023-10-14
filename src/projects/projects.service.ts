@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Repository } from 'typeorm';
 import { Project, ProjectStatus } from './entities/project.entity';
@@ -11,24 +10,6 @@ export class ProjectsService {
     @InjectRepository(Project)
     private readonly projectsRepository: Repository<Project>,
   ) {}
-
-  async create(createProjectDto: CreateProjectDto) {
-    const project = new Project(createProjectDto);
-
-    if (new Date(createProjectDto.started_at) <= new Date()) {
-      project.status = ProjectStatus.Active;
-    }
-
-    return this.projectsRepository.save(project);
-  }
-
-  async findAll() {
-    return this.projectsRepository.find();
-  }
-
-  async findOne(id: string) {
-    return this.projectsRepository.findOneOrFail({ where: { id } });
-  }
 
   async update(id: string, updateProjectDto: UpdateProjectDto) {
     const project = await this.projectsRepository.findOneOrFail({
