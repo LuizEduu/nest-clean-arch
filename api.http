@@ -1,7 +1,7 @@
 GET http://localhost:3000/projects
 ###
 
-GET http://localhost:3000/projects/8e5c14d0-459e-48fa-8da4-5749af902527
+GET http://localhost:3000/projects/{{project_id}}
 ###
 
 # @name createProject
