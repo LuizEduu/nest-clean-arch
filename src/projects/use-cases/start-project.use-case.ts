@@ -1,8 +1,8 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Project, ProjectStatus } from '../entities/project.entity';
+import { Project } from '../entities/project.entity';
 import { Repository } from 'typeorm';
 import { StartProjectDto } from '../dto/start-project.dto';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class StartProjectUseCase {
@@ -16,20 +16,7 @@ export class StartProjectUseCase {
       where: { id: id },
     });
 
-    if (
-      [
-        ProjectStatus.Active,
-        ProjectStatus.Completed,
-        ProjectStatus.Cancelled,
-      ].includes(project.status)
-    ) {
-      throw new BadRequestException(
-        'Project an status active, completed or cancelled cannot be started',
-      );
-    }
-
-    project.started_at = input.started_at;
-    project.status = ProjectStatus.Active;
+    project.start(input.started_at);
 
     return this.projectsRepository.save(project);
   }

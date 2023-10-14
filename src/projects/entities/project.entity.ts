@@ -47,5 +47,26 @@ export class Project {
   ) {
     Object.assign(this, props);
     this.id = id ?? randomUUID();
+
+    if (props?.started_at) {
+      this.start(props.started_at);
+    }
+  }
+
+  start(started_at: Date) {
+    if (
+      [
+        ProjectStatus.Active,
+        ProjectStatus.Completed,
+        ProjectStatus.Cancelled,
+      ].includes(this.status)
+    ) {
+      throw new Error(
+        'Project an status active, completed or cancelled cannot be started',
+      );
+    }
+
+    this.started_at = started_at;
+    this.status = ProjectStatus.Active;
   }
 }
